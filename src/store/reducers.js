@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import locationReducer from './location';
 import quizReducer from '../routes/Quiz/modules/quiz';
+import scoreReducer from '../routes/Quiz/modules/score';
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     location: locationReducer,
     quiz: quizReducer,
+    score: scoreReducer,
     ...asyncReducers
   });
 };

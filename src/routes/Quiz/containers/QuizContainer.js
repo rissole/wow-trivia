@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
-import { setQuestionSet } from '../modules/quiz';
+import { setQuestionSet, setPlayerName } from '../modules/quiz';
 
 import Quiz from '../components/Quiz';
 
 const mapDispatchToProps = {
-  setQuestionSet
+  setQuestionSet,
+  setPlayerName
 };
 
 const mapStateToProps = (state) => ({
-  currentQuestionSet : state.quiz.currentQuestionSet
+  currentQuestionSet : state.quiz.currentQuestionSet,
+  currentPlayer: state.quiz.currentPlayer
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

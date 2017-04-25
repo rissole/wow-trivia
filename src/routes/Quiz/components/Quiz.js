@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import QuestionSetInput from './QuestionSetInput';
+import RoomCreateInput from './RoomCreateInput';
 import AnswerInput from './AnswerInput';
 
 import './Quiz.scss';
@@ -18,7 +18,10 @@ export default class Quiz extends PureComponent {
           Select a question set
         </div>
         <div className="quiz__input">
-          { currentQuestionSet === null ? <QuestionSetInput setQuestionSet={this.props.setQuestionSet} />
+          { currentQuestionSet === null ? <RoomCreateInput
+            setQuestionSet={this.props.setQuestionSet}
+            setPlayerName={this.props.setPlayerName}
+          />
             : <AnswerInput currentQuestionSet={currentQuestionSet} />
           }
         </div>
@@ -30,5 +33,7 @@ export default class Quiz extends PureComponent {
 
 Quiz.propTypes = {
   setQuestionSet: PropTypes.func.isRequired,
-  currentQuestionSet: PropTypes.string
+  setPlayerName: PropTypes.func.isRequired,
+  currentQuestionSet: PropTypes.string,
+  currentPlayer: PropTypes.string
 };

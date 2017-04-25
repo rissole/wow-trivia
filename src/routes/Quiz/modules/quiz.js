@@ -4,6 +4,7 @@ import Immutable from 'seamless-immutable';
 // Constants
 // ------------------------------------
 export const QUIZ_SET_QUESTION_SET = 'QUIZ_SET_QUESTION_SET';
+export const QUIZ_SET_PLAYER_NAME = 'QUIZ_SET_PLAYER_NAME';
 
 // ------------------------------------
 // Actions
@@ -15,9 +16,12 @@ export function setQuestionSet(value = null) {
   };
 }
 
-export const actions = {
-  setQuestionSet
-};
+export function setPlayerName(value = null) {
+  return {
+    type: QUIZ_SET_PLAYER_NAME,
+    payload: value
+  };
+}
 
 // ------------------------------------
 // Action Handlers
@@ -25,6 +29,9 @@ export const actions = {
 const ACTION_HANDLERS = {
   [QUIZ_SET_QUESTION_SET]: (state, action) => {
     return Immutable.setIn(state, ['currentQuestionSet'], action.payload);
+  },
+  [QUIZ_SET_PLAYER_NAME]: (state, action) => {
+    return Immutable.setIn(state, ['currentPlayer'], action.payload);
   }
 };
 
@@ -32,7 +39,8 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = Immutable({
-  currentQuestionSet: null
+  currentQuestionSet: null,
+  currentPlayer: null
 });
 export default function quizReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];
