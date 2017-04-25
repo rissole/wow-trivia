@@ -17,7 +17,11 @@ export default class Quiz extends PureComponent {
             setQuestionSet={this.props.setQuestionSet}
             setPlayerName={this.props.setPlayerName}
           />
-            : <AnswerInput currentQuestionSet={currentQuestionSet} currentQuestionNumber={currentQuestionNumber} />
+            : <AnswerInput
+              currentQuestionSet={currentQuestionSet}
+              currentQuestionNumber={currentQuestionNumber}
+              setPlayerAnswer={this.props.setPlayerAnswer}
+            />
           }
         </div>
       </div>
@@ -29,6 +33,8 @@ export default class Quiz extends PureComponent {
 Quiz.propTypes = {
   setQuestionSet: PropTypes.func.isRequired,
   setPlayerName: PropTypes.func.isRequired,
+  setPlayerAnswer: PropTypes.func.isRequired,
+
   currentQuestionSet: PropTypes.string,
   currentPlayer: PropTypes.string,
   currentQuestionNumber: PropTypes.number
