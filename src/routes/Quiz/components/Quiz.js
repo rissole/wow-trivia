@@ -1,32 +1,32 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { questionSets } from '../assets/questions';
+import QuestionSetInput from './QuestionSetInput';
+import AnswerInput from './AnswerInput';
 
 export default class Quiz extends PureComponent {
+
   render() {
-    const { counter, doubleAsync, increment } = this.props;
+    const { currentQuestionSet } = this.props;
 
     return (
       <div style={{ margin: '0 auto' }}>
         <h1>World of Warcraft Trivia</h1>
-        <div className="instructions">
+        <div className="question">
           Select a question set
         </div>
-        <button className="btn btn-default" onClick={increment}>
-          Increment
-        </button>
-        {' '}
-        <button className="btn btn-default" onClick={doubleAsync}>
-          Double (Async)
-        </button>
+        <div className="input">
+          { currentQuestionSet === null ? <QuestionSetInput setQuestionSet={this.props.setQuestionSet} />
+            : <AnswerInput currentQuestionSet={currentQuestionSet} />
+          }
+        </div>
       </div>
     );
   }
+
 }
 
 Quiz.propTypes = {
-  counter: PropTypes.number.isRequired,
-  doubleAsync: PropTypes.func.isRequired,
-  increment: PropTypes.func.isRequired
+  setQuestionSet: PropTypes.func.isRequired,
+  currentQuestionSet: PropTypes.string
 };

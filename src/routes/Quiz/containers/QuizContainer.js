@@ -1,15 +1,14 @@
 import { connect } from 'react-redux';
-import { increment, doubleAsync } from '../modules/quiz';
+import { setQuestionSet } from '../modules/quiz';
 
 import Quiz from '../components/Quiz';
 
 const mapDispatchToProps = {
-  increment : () => increment(1),
-  doubleAsync
+  setQuestionSet
 };
 
 const mapStateToProps = (state) => ({
-  counter : state.quiz
+  currentQuestionSet : state.quiz.currentQuestionSet
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

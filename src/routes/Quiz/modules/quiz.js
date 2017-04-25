@@ -1,55 +1,40 @@
+import Immutable from 'seamless-immutable';
+
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const COUNTER_INCREMENT = 'COUNTER_INCREMENT';
-export const COUNTER_DOUBLE_ASYNC = 'COUNTER_DOUBLE_ASYNC';
+export const QUIZ_SET_QUESTION_SET = 'QUIZ_SET_QUESTION_SET';
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function increment (value = 1) {
+export function setQuestionSet(value = null) {
   return {
-    type    : COUNTER_INCREMENT,
-    payload : value
+    type: QUIZ_SET_QUESTION_SET,
+    payload: value
   };
 }
 
-/*  This is a thunk, meaning it is a function that immediately
-    returns a function for lazy evaluation. It is incredibly useful for
-    creating async actions, especially when combined with redux-thunk! */
-
-export const doubleAsync = () => {
-  return (dispatch, getState) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        dispatch({
-          type    : COUNTER_DOUBLE_ASYNC,
-          payload : getState().quiz
-        });
-        resolve();
-      }, 200);
-    });
-  };
-};
-
 export const actions = {
-  increment,
-  doubleAsync
+  setQuestionSet
 };
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [COUNTER_INCREMENT]    : (state, action) => state + action.payload,
-  [COUNTER_DOUBLE_ASYNC] : (state, action) => state * 2
+  [QUIZ_SET_QUESTION_SET]: (state, action) => {
+    return Immutable.setIn(state, ['currentQuestionSet'], action.payload);
+  }
 };
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = 0;
-export default function quizReducer (state = initialState, action) {
+const initialState = Immutable({
+  currentQuestionSet: null
+});
+export default function quizReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];
 
   return handler ? handler(state, action) : state;

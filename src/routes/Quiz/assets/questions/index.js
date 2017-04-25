@@ -1,4 +1,4 @@
-import timeless from './Timeless.json';
+import timeless from './timeless.json';
 
 export default {
   timeless
