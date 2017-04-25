@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import QuestionSetInput from './QuestionSetInput';
 import AnswerInput from './AnswerInput';
 
+import './Quiz.scss';
+
 export default class Quiz extends PureComponent {
 
   render() {
@@ -15,7 +17,7 @@ export default class Quiz extends PureComponent {
         <div className="question">
           Select a question set
         </div>
-        <div className="input">
+        <div className="quiz__input">
           { currentQuestionSet === null ? <QuestionSetInput setQuestionSet={this.props.setQuestionSet} />
             : <AnswerInput currentQuestionSet={currentQuestionSet} />
           }
