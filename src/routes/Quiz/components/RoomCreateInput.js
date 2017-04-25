@@ -17,7 +17,8 @@ const QuestionSetInput = ({ setQuestionSet, setPlayerName }) => {
       </div> : null}
       <div className="room-create-input__question-set">
         {QuestionManager.getSets().map((set) => (
-          <button key={set} onClick={createQuestionSetClick(set)}>{QuestionManager.getTitle(set)}</button>
+          <button className="btn btn-default" key={set}
+            onClick={createQuestionSetClick(set)}>{QuestionManager.getTitle(set)}</button>
         ))}
       </div>
     </div>);

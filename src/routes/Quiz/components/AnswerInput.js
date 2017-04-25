@@ -21,9 +21,14 @@ class AnswerInput extends PureComponent {
       <div className="question">
         {QuestionManager.getQuestion(currentQuestionSet, currentQuestionNumber)}
       </div>
-      <div className="quiz-answer-input__answer">
-        <input autoFocus onChange={this._playerAnswerOnChange} />
-      </div>
+      <form className="quiz-answer-input__answer">
+        <div className="form-group">
+          <input className="form-control" autoFocus onChange={this._playerAnswerOnChange} />
+        </div>
+        <div className="form-group">
+          <button className="btn btn-default" type="submit">Submit</button>
+        </div>
+      </form>
     </div>);
   }
 }
