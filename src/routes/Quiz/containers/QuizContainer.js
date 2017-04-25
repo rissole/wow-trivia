@@ -10,7 +10,8 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => ({
   currentQuestionSet : state.quiz.currentQuestionSet,
-  currentPlayer: state.quiz.currentPlayer
+  currentPlayer: state.quiz.currentPlayer,
+  currentQuestionNumber: state.game.currentQuestionNumber
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
