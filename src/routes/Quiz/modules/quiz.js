@@ -1,4 +1,5 @@
 import Immutable from 'seamless-immutable';
+import QuestionManager from '../assets/questions/QuestionManager';
 
 const asyncAction = (actionType) => ({ REQUEST: `${actionType}_REQUEST`, SUCCESS: `${actionType}_SUCCESS` });
 
@@ -28,6 +29,9 @@ export function setPlayerName(value = null) {
 
 export function setPlayerAnswer(value = null) {
   return (dispatch, getState) => {
+    const currentQuestionSet = getState().quiz.currentQuestionSet;
+    const currentQuestionIndex = getState().game.currentQuestionIndex;
+
     dispatch({
       type: ASYNC_QUIZ_SET_PLAYER_ANSWER.REQUEST,
       payload: value
@@ -36,7 +40,11 @@ export function setPlayerAnswer(value = null) {
       setTimeout(() => {
         dispatch({
           type    : ASYNC_QUIZ_SET_PLAYER_ANSWER.SUCCESS,
-          payload : value
+          payload : {
+            value,
+            isCorrect: QuestionManager.isCorrect(currentQuestionSet, currentQuestionIndex, value),
+            correctAnswer: QuestionManager.getAnswers(currentQuestionSet, currentQuestionIndex)[0]
+          }
         });
         resolve();
       }, 500);
@@ -52,14 +60,16 @@ const ACTION_HANDLERS = {
     return Immutable.setIn(state, ['currentQuestionSet'], action.payload);
   },
   [QUIZ_SET_PLAYER_NAME]: (state, action) => {
-    return Immutable.setIn(state, ['currentPlayer'], action.payload);
+    return Immutable.setIn(state, ['playerName'], action.payload);
   },
   [ASYNC_QUIZ_SET_PLAYER_ANSWER.REQUEST]: (state, action) => {
     return Immutable.merge(state, {
       playerAnswer: {
         value: action.payload,
         isFetching: true,
-        hasFetched: false
+        hasFetched: false,
+        isCorrect: null,
+        correctAnswer: null
       }
     });
   },
@@ -67,7 +77,9 @@ const ACTION_HANDLERS = {
     return Immutable.merge(state, {
       playerAnswer: {
         isFetching: false,
-        hasFetched: true
+        hasFetched: true,
+        isCorrect: action.payload.isCorrect,
+        correctAnswer: action.payload.correctAnswer
       }
     });
   }
@@ -78,9 +90,11 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = Immutable({
   currentQuestionSet: null,
-  currentPlayer: null,
+  playerName: null,
   playerAnswer: {
     value: null,
+    isCorrect: null,
+    correctAnswer: null,
     isFetching: false,
     hasFetched: false
   }

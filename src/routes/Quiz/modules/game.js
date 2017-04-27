@@ -31,7 +31,7 @@ const ACTION_HANDLERS = {
     return Immutable.setIn(state, [action.payload.name], action.payload);
   },
   [GAME_SET_QUESTION]: (state, action) => {
-    return Immutable.setIn(state, ['currentQuestionNumber'], action.payload);
+    return Immutable.setIn(state, ['currentQuestionIndex'], action.payload);
   }
 };
 
@@ -40,7 +40,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = Immutable({
   scores: {},
-  currentQuestionNumber: 0
+  currentQuestionIndex: 1
 });
 export default function gameReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];

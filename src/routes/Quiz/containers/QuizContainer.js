@@ -11,8 +11,8 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => ({
   currentQuestionSet : state.quiz.currentQuestionSet,
-  currentPlayer: state.quiz.currentPlayer,
-  currentQuestionNumber: state.game.currentQuestionNumber,
+  playerName: state.quiz.playerName,
+  currentQuestionIndex: state.game.currentQuestionIndex,
   playerAnswer: state.quiz.playerAnswer.value,
   hasSubmittedAnswer: (!state.quiz.playerAnswer.isFetching && state.quiz.playerAnswer.hasFetched)
 });

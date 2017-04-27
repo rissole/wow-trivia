@@ -8,7 +8,11 @@ const QuestionManager = {
   getSets: () => Object.keys(QUESTION_SETS),
   getTitle: (set) => QUESTION_SETS[set].Title,
   getTotalQuestions: (set) => QUESTION_SETS[set].Question.length,
-  getQuestion: (set, questionNumber) => QUESTION_SETS[set].Question[questionNumber]
+  getQuestion: (set, questionIndex) => QUESTION_SETS[set].Question[questionIndex],
+  getAnswers: (set, questionIndex) => QUESTION_SETS[set].Answers[questionIndex],
+  isCorrect: (set, questionIndex, answer) => {
+    return QUESTION_SETS[set].Answers[questionIndex].some((correct) => answer.toLowerCase() === correct.toLowerCase());
+  }
 };
 
 export default QuestionManager;

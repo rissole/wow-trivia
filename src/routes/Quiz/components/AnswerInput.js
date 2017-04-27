@@ -27,11 +27,11 @@ class AnswerInput extends PureComponent {
   }
 
   render() {
-    const { currentQuestionSet, currentQuestionNumber } = this.props;
+    const { currentQuestionSet, currentQuestionIndex } = this.props;
 
     return (<div>
       <div className="question">
-        {QuestionManager.getQuestion(currentQuestionSet, currentQuestionNumber)}
+        {QuestionManager.getQuestion(currentQuestionSet, currentQuestionIndex)}
       </div>
       <form className="quiz-answer-input__answer">
         <div className="form-group">
@@ -47,7 +47,7 @@ class AnswerInput extends PureComponent {
 
 AnswerInput.propTypes = {
   currentQuestionSet: PropTypes.string.isRequired,
-  currentQuestionNumber: PropTypes.number.isRequired,
+  currentQuestionIndex: PropTypes.number.isRequired,
   setPlayerAnswer: PropTypes.func.isRequired
 };
 
