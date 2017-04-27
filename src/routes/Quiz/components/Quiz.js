@@ -37,5 +37,7 @@ Quiz.propTypes = {
 
   currentQuestionSet: PropTypes.string,
   currentPlayer: PropTypes.string,
-  currentQuestionNumber: PropTypes.number
+  currentQuestionNumber: PropTypes.number,
+  playerAnswer: PropTypes.string,
+  hasSubmittedAnswer: PropTypes.bool
 };

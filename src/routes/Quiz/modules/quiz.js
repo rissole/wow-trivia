@@ -1,11 +1,13 @@
 import Immutable from 'seamless-immutable';
 
+const asyncAction = (actionType) => ({ REQUEST: `${actionType}_REQUEST`, SUCCESS: `${actionType}_SUCCESS` });
+
 // ------------------------------------
 // Constants
 // ------------------------------------
 export const QUIZ_SET_QUESTION_SET = 'QUIZ_SET_QUESTION_SET';
 export const QUIZ_SET_PLAYER_NAME = 'QUIZ_SET_PLAYER_NAME';
-export const QUIZ_SET_PLAYER_ANSWER = 'QUIZ_SET_PLAYER_ANSWER';
+export const ASYNC_QUIZ_SET_PLAYER_ANSWER = asyncAction('QUIZ_SET_PLAYER_ANSWER');
 
 // ------------------------------------
 // Actions
@@ -25,9 +27,20 @@ export function setPlayerName(value = null) {
 }
 
 export function setPlayerAnswer(value = null) {
-  return {
-    type: QUIZ_SET_PLAYER_ANSWER,
-    payload: value
+  return (dispatch, getState) => {
+    dispatch({
+      type: ASYNC_QUIZ_SET_PLAYER_ANSWER.REQUEST,
+      payload: value
+    });
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        dispatch({
+          type    : ASYNC_QUIZ_SET_PLAYER_ANSWER.SUCCESS,
+          payload : value
+        });
+        resolve();
+      }, 500);
+    });
   };
 }
 
@@ -41,8 +54,22 @@ const ACTION_HANDLERS = {
   [QUIZ_SET_PLAYER_NAME]: (state, action) => {
     return Immutable.setIn(state, ['currentPlayer'], action.payload);
   },
-  [QUIZ_SET_PLAYER_ANSWER]: (state, action) => {
-    return Immutable.setIn(state, ['currentPlayerAnswer'], action.payload);
+  [ASYNC_QUIZ_SET_PLAYER_ANSWER.REQUEST]: (state, action) => {
+    return Immutable.merge(state, {
+      playerAnswer: {
+        value: action.payload,
+        isFetching: true,
+        hasFetched: false
+      }
+    });
+  },
+  [ASYNC_QUIZ_SET_PLAYER_ANSWER.SUCCESS]: (state, action) => {
+    return Immutable.merge(state, {
+      playerAnswer: {
+        isFetching: false,
+        hasFetched: true
+      }
+    });
   }
 };
 
@@ -52,7 +79,11 @@ const ACTION_HANDLERS = {
 const initialState = Immutable({
   currentQuestionSet: null,
   currentPlayer: null,
-  currentPlayerAnswer: null
+  playerAnswer: {
+    value: null,
+    isFetching: false,
+    hasFetched: false
+  }
 });
 export default function quizReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];
