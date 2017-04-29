@@ -1,5 +1,5 @@
 import Immutable from 'seamless-immutable';
-import QuestionManager from '../assets/questions/QuestionManager';
+import QuestionManager from './QuestionManager';
 
 const asyncAction = (actionType) => ({ REQUEST: `${actionType}_REQUEST`, SUCCESS: `${actionType}_SUCCESS` });
 
@@ -40,6 +40,7 @@ export function setPlayerAnswer(value = null) {
       const answerIndex = QuestionManager.getIndexForAnswer(currentQuestionSet, currentQuestionIndex, value);
       const correctAnswers = QuestionManager.getAnswers(currentQuestionSet, currentQuestionIndex);
 
+      // one day this will be a fetch to the server to get answers.
       setTimeout(() => {
         dispatch({
           type    : ASYNC_QUIZ_SET_PLAYER_ANSWER.SUCCESS,
@@ -50,7 +51,7 @@ export function setPlayerAnswer(value = null) {
           }
         });
         resolve();
-      }, 1000);
+      }, 500);
     });
   };
 }

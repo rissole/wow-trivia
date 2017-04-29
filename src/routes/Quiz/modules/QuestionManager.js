@@ -1,4 +1,4 @@
-import timeless from './timeless.json';
+import timeless from '../assets/questions/timeless.json';
 
 const QUESTION_SETS = {
   timeless

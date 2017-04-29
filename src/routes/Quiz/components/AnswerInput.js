@@ -1,6 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react';
 
-import QuestionManager from '../assets/questions/QuestionManager';
+import QuestionManager from '../modules/QuestionManager';
 
 import './QuizInput.scss';
 
