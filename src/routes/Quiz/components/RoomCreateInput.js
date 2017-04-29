@@ -20,14 +20,16 @@ export default class QuestionSetInput extends PureComponent {
   }
 
   render() {
+    /*
+     {false ? <div className="room-create-input__player-name">
+     Player name: <input type="text" onChange={this._playerNameOnChange} placeholder="Salty Stef" />
+     </div> : null}
+     */
     return (
       <div>
         <div className="question">
           Select a question set
         </div>
-        {false ? <div className="room-create-input__player-name">
-          Player name: <input type="text" onChange={this._playerNameOnChange} placeholder="Salty Stef" />
-        </div> : null}
         <ul className="room-create-input__question-set">
           {QuestionManager.getSets().map((set) => (
             <li key={set}>
