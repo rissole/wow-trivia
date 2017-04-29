@@ -1,10 +1,34 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+const ENTER_KEY_CODE = 13;
+const SPACE_KEY_CODE = 32;
+
 export default class NextQuestionScreen extends PureComponent {
+  constructor() {
+    super();
+    this._clickNextQuestion = this._clickNextQuestion.bind(this);
+    this._enterKeyPressed = this._enterKeyPressed.bind(this);
+  }
+
+  componentDidMount() {
+    document.body.addEventListener('keydown', this._enterKeyPressed);
+  }
+
+  componentWillUnmount() {
+    document.body.removeEventListener('keydown', this._enterKeyPressed);
+  }
+
+  _enterKeyPressed(event) {
+    if (event.which === ENTER_KEY_CODE || event.which === SPACE_KEY_CODE) {
+      document.body.removeEventListener('keydown', this._enterKeyPressed);
+      this.props.requestNextQuestion();
+    }
+  }
 
   _clickNextQuestion(event) {
-    return null;
+    event.preventDefault();
+    this.props.requestNextQuestion();
   }
 
   _renderCorrectAnswers() {
@@ -18,6 +42,7 @@ export default class NextQuestionScreen extends PureComponent {
       }
     </span>);
   }
+
   _renderCorrectPanel() {
     const { correctAnswers } = this.props.playerAnswer;
 
@@ -44,7 +69,7 @@ export default class NextQuestionScreen extends PureComponent {
         </div>
         <div className="panel-body">
           { this.props.playerAnswer.correctAnswers.length === 1
-            ? <span>The answer was: ${this._renderCorrectAnswers()}</span>
+            ? <span>The answer was: {this._renderCorrectAnswers()}</span>
             : <span>We would've accepted any of the following: {this._renderCorrectAnswers()}</span>
           }
         </div>
@@ -61,7 +86,13 @@ export default class NextQuestionScreen extends PureComponent {
 
     return (<div>
       { isCorrect ? this._renderCorrectPanel() : this._renderIncorrectPanel() }
-      <button className="btn btn-default" type="button" onClick={this._clickNextQuestion}>Next question</button>
+      <button
+        className="btn btn-default"
+        type="button"
+        onClick={this._clickNextQuestion}
+      >
+        Next question
+      </button>
     </div>);
   }
 };
@@ -73,5 +104,6 @@ NextQuestionScreen.propTypes = {
     correctAnswers: PropTypes.array,
     isFetching: PropTypes.bool,
     hasFetched: PropTypes.bool
-  })
+  }),
+  requestNextQuestion: PropTypes.func
 };

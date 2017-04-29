@@ -31,7 +31,9 @@ export default class QuestionSetInput extends PureComponent {
         <div className="room-create-input__question-set">
           {QuestionManager.getSets().map((set) => (
             <button className="btn btn-default" key={set}
-              onClick={this._createQuestionSetClick(set)}>{QuestionManager.getTitle(set)}</button>
+              onClick={this._createQuestionSetClick(set)}>
+              {QuestionManager.getTitle(set)} ({QuestionManager.getNumberOfQuestions(set)} questions)
+            </button>
           ))}
         </div>
       </div>);
