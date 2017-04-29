@@ -10,8 +10,11 @@ const QuestionManager = {
   getTotalQuestions: (set) => QUESTION_SETS[set].Question.length,
   getQuestion: (set, questionIndex) => QUESTION_SETS[set].Question[questionIndex],
   getAnswers: (set, questionIndex) => QUESTION_SETS[set].Answers[questionIndex],
-  isCorrect: (set, questionIndex, answer) => {
-    return QUESTION_SETS[set].Answers[questionIndex].some((correct) => answer.toLowerCase() === correct.toLowerCase());
+
+  // each question has multiple valid answers
+  getIndexForAnswer: (set, questionIndex, answer) => {
+    const answers = QUESTION_SETS[set].Answers[questionIndex];
+    return answers.findIndex((correct) => answer.toLowerCase() === correct.toLowerCase());
   }
 };
 

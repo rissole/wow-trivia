@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import RoomCreateInput from './RoomCreateInput';
 import AnswerInput from './AnswerInput';
+import NextQuestionScreen from './NextQuestionScreen';
 
 const SCREENS = {
   ROOM_CREATE: 'ROOM_CREATE',
@@ -14,7 +15,9 @@ const SCREENS = {
 export default class Quiz extends PureComponent {
 
   _getCurrentScreen() {
-    const { currentQuestionSet, hasSubmittedAnswer } = this.props;
+    const { currentQuestionSet, playerAnswer } = this.props;
+
+    const hasSubmittedAnswer = (playerAnswer.value !== null);
     const isGameOver = false;
 
     if (currentQuestionSet === null) {
@@ -33,7 +36,7 @@ export default class Quiz extends PureComponent {
   }
 
   render() {
-    const { currentQuestionSet, currentQuestionIndex } = this.props;
+    const { currentQuestionSet, currentQuestionIndex, playerAnswer } = this.props;
 
     let screen;
     switch (this._getCurrentScreen()) {
@@ -51,7 +54,7 @@ export default class Quiz extends PureComponent {
         />);
         break;
       case SCREENS.NEXT_QUESTION:
-        screen = (<div>tsugi tsugi</div>);
+        screen = (<NextQuestionScreen playerAnswer={playerAnswer} />);
         break;
     }
 
@@ -75,6 +78,12 @@ Quiz.propTypes = {
   currentQuestionSet: PropTypes.string,
   playerName: PropTypes.string,
   currentQuestionIndex: PropTypes.number,
-  playerAnswer: PropTypes.string,
+  playerAnswer: PropTypes.shape({
+    value: PropTypes.string,
+    isCorrect: PropTypes.bool,
+    correctAnswers: PropTypes.array,
+    isFetching: PropTypes.bool,
+    hasFetched: PropTypes.bool
+  }),
   hasSubmittedAnswer: PropTypes.bool
 };

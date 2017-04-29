@@ -37,17 +37,20 @@ export function setPlayerAnswer(value = null) {
       payload: value
     });
     return new Promise((resolve) => {
+      const answerIndex = QuestionManager.getIndexForAnswer(currentQuestionSet, currentQuestionIndex, value);
+      const correctAnswers = QuestionManager.getAnswers(currentQuestionSet, currentQuestionIndex);
+
       setTimeout(() => {
         dispatch({
           type    : ASYNC_QUIZ_SET_PLAYER_ANSWER.SUCCESS,
           payload : {
             value,
-            isCorrect: QuestionManager.isCorrect(currentQuestionSet, currentQuestionIndex, value),
-            correctAnswer: QuestionManager.getAnswers(currentQuestionSet, currentQuestionIndex)[0]
+            isCorrect: answerIndex !== -1,
+            correctAnswers: correctAnswers.filter((_, i) => i !== answerIndex)
           }
         });
         resolve();
-      }, 500);
+      }, 1000);
     });
   };
 }
@@ -69,7 +72,7 @@ const ACTION_HANDLERS = {
         isFetching: true,
         hasFetched: false,
         isCorrect: null,
-        correctAnswer: null
+        correctAnswers: null
       }
     });
   },
@@ -79,7 +82,7 @@ const ACTION_HANDLERS = {
         isFetching: false,
         hasFetched: true,
         isCorrect: action.payload.isCorrect,
-        correctAnswer: action.payload.correctAnswer
+        correctAnswers: action.payload.correctAnswers
       }
     });
   }
@@ -94,7 +97,7 @@ const initialState = Immutable({
   playerAnswer: {
     value: null,
     isCorrect: null,
-    correctAnswer: null,
+    correctAnswers: null,
     isFetching: false,
     hasFetched: false
   }
