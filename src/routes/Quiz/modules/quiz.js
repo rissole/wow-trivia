@@ -90,7 +90,6 @@ export function requestNextQuestion() {
 const ACTION_HANDLERS = {
   [QUIZ_SET_QUESTION_SET]: (state, action) => {
     const set = action.payload;
-    console.info(QuestionManager.getNumberOfQuestions(set));
 
     QuestionManager.createOrder(set);
     return Immutable.merge(state, {
