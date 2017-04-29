@@ -1,7 +1,13 @@
 import timeless from '../assets/questions/timeless.json';
+import aidenhall from '../assets/questions/aidenhall.json';
+import cata1 from '../assets/questions/cata1.json';
+import cata2 from '../assets/questions/cata2.json';
 
 const QUESTION_SETS = {
-  timeless
+  timeless,
+  aidenhall,
+  cata1,
+  cata2
 };
 
 // I dream of a day when this is server side, and more than one

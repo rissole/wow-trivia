@@ -5,3 +5,12 @@
 .quiz__score {
   padding-bottom: 2rem;
 }
+
+.room-create-input__question-set {
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    padding-bottom: 2rem;
+  }
+}

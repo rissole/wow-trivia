@@ -28,14 +28,19 @@ export default class QuestionSetInput extends PureComponent {
         {false ? <div className="room-create-input__player-name">
           Player name: <input type="text" onChange={this._playerNameOnChange} placeholder="Salty Stef" />
         </div> : null}
-        <div className="room-create-input__question-set">
+        <ul className="room-create-input__question-set">
           {QuestionManager.getSets().map((set) => (
-            <button className="btn btn-default" key={set}
-              onClick={this._createQuestionSetClick(set)}>
-              {QuestionManager.getTitle(set)} ({QuestionManager.getNumberOfQuestions(set)} questions)
-            </button>
+            <li key={set}>
+              <button
+                className="btn btn-default"
+                onClick={this._createQuestionSetClick(set)}
+                style={{ width: 400 }}
+              >
+                {QuestionManager.getTitle(set)} ({QuestionManager.getNumberOfQuestions(set)} questions)
+              </button>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>);
   }
 };
