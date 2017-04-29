@@ -84,6 +84,5 @@ Quiz.propTypes = {
     correctAnswers: PropTypes.array,
     isFetching: PropTypes.bool,
     hasFetched: PropTypes.bool
-  }),
-  hasSubmittedAnswer: PropTypes.bool
+  })
 };
