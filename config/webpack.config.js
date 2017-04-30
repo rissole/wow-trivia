@@ -42,6 +42,10 @@ webpackConfig.output = {
   publicPath : project.compiler_public_path
 };
 
+if (__PROD__) {
+  webpackConfig.output.publicPath = '/wow-trivia/';
+}
+
 // ------------------------------------
 // Externals
 // ------------------------------------
