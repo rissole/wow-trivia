@@ -11,11 +11,11 @@
     "clean": "rimraf dist",
     "compile": "better-npm-run compile",
     "lint": "eslint bin build config server src tests",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "yarn lint -- --fix",
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",
     "test": "better-npm-run test",
-    "test:dev": "npm run test -- --watch",
+    "test:dev": "yarn test -- --watch",
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
@@ -36,20 +36,20 @@
       }
     },
     "deploy": {
-      "command": "npm run lint && npm run test && npm run clean && npm run compile",
+      "command": "yarn lint && yarn test && yarn clean && yarn compile",
       "env": {
         "DEBUG": "app:*"
       }
     },
     "deploy:dev": {
-      "command": "npm run deploy",
+      "command": "yarn deploy",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
       }
     },
     "deploy:prod": {
-      "command": "npm run deploy",
+      "command": "yarn deploy",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"

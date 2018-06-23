@@ -10,6 +10,10 @@ const __DEV__ = project.globals.__DEV__;
 const __PROD__ = project.globals.__PROD__;
 const __TEST__ = project.globals.__TEST__;
 
+if (__PROD__) {
+  project.compiler_public_path = '/wow-trivia/';
+}
+
 debug('Creating configuration.');
 const webpackConfig = {
   name    : 'client',
@@ -41,10 +45,6 @@ webpackConfig.output = {
   path       : project.paths.dist(),
   publicPath : project.compiler_public_path
 };
-
-if (__PROD__) {
-  webpackConfig.output.publicPath = '/wow-trivia/';
-}
 
 // ------------------------------------
 // Externals
